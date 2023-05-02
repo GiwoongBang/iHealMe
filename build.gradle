@@ -33,7 +33,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.projectlombok:lombok:1.18.22'
     compileOnly 'org.projectlombok:lombok'
-    runtimeOnly 'com.h2database:h2'
+//  runtimeOnly 'com.h2database:h2'
 // runtimeOnly 'com.mysql:mysql-connector-j'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
@@ -66,11 +66,16 @@ dependencies {
 // implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
 // 유효성 검사
     implementation 'org.springframework.boot:spring-boot-starter-validation'
-// hibernate
-    implementation 'org.hibernate:hibernate-core:{Hibernate version}'
-    implementation 'javax.persistence:javax.persistence-api:{JPA version}'
 // 타임리프
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+
+//  oracle database connection
+    runtimeOnly 'com.oracle.database.jdbc:ojdbc6:11.2.0.4'
+    implementation 'com.oracle.database.security:oraclepki:11.2.0.4'
+    implementation 'com.oracle.database.security:osdt_core:11.2.0.4'
+    implementation 'com.oracle.database.security:osdt_cert:11.2.0.4'
+
+
 }
 
 tasks.named('test') {
