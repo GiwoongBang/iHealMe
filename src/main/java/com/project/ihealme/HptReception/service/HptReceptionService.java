@@ -2,6 +2,7 @@ package com.project.ihealme.HptReception.service;
 
 import com.project.ihealme.HptReception.domain.HptReception;
 import com.project.ihealme.HptReception.repository.HptReceptionRepository;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,7 +17,7 @@ public class HptReceptionService {
     }
 
     public List<HptReception> getHptReceptionList() {
-        return hptReceptionRepository.findAll();
+        return hptReceptionRepository.findAll(Sort.by(Sort.Direction.DESC, "resNo"));
     }
 
     public HptReception save(HptReception hptReception) {

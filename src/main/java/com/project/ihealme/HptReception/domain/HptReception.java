@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 public class HptReception {
 
     @Id @Column(name = "RESNO")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long resNo;
 
     @Column(name = "REPEMAIL")

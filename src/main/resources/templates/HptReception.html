@@ -37,8 +37,8 @@
             <td th:text="${hptReception.rDate}"></td>
             <td th:text="${hptReception.currentStatus}"></td>
             <td>
-                <a th:if="${hptReception.currentStatus == '접수 대기'}" href="#" th:onclick="'javascript: {accept(${hptReception.resNo})} '">접수</a>
-                <a th:if="${hptReception.currentStatus == '접수 대기'}" href="#" th:onclick="'javascript: {reject(${hptReception.resNo})} '">거절</a>
+                <a th:if="${hptReception.currentStatus == '접수대기'}" href="#" th:onclick="'javascript: {accept(${hptReception.resNo})} '">접수</a>&nbsp
+                <a th:if="${hptReception.currentStatus == '접수대기'}" href="#" th:onclick="'javascript: {reject(${hptReception.resNo})} '">거절</a>
                 <a th:if="${hptReception.currentStatus == '진료 전'}" href="#" th:onclick="'javascript: {complete(${hptReception.resNo})} '">진료완료</a>
             </td>
         </tr>
