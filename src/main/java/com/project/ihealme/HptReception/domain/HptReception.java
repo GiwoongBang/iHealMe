@@ -12,7 +12,7 @@ public class HptReception {
 
     @Id @Column(name = "RESNO")
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Long resNo;
+    private int resNo;
 
     @Column(name = "REPEMAIL")
     private String repEmail;
@@ -30,6 +30,6 @@ public class HptReception {
     private String currentStatus;
 
     @Column(name = "RTCOUNT")
-    private Long RtCount;
+    private int rtCount;
 
 }

@@ -71,9 +71,9 @@ dependencies {
 
 //  oracle database connection
     runtimeOnly 'com.oracle.database.jdbc:ojdbc6:11.2.0.4'
-    implementation 'com.oracle.database.security:oraclepki:11.2.0.4'
-    implementation 'com.oracle.database.security:osdt_core:11.2.0.4'
-    implementation 'com.oracle.database.security:osdt_cert:11.2.0.4'
+    implementation 'com.oracle.database.security:oraclepki'
+    implementation 'com.oracle.database.security:osdt_core'
+    implementation 'com.oracle.database.security:osdt_cert'
 
 
 }

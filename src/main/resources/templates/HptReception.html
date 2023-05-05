@@ -14,7 +14,7 @@
     <h1>접수내역 확인</h1>
     <div class="counter">
         <span class="counter-label">실시간 대기자수:</span>
-        <span class="counter-value" th:text="${RtCount}">0</span>
+        <span class="counter-value" th:text="${rtCount != null ? rtCount : ''}"></span>
         <button class="counter-btn" id="add-btn" th:onclick="'javascript: {addCounter()} '">+1</button>&nbsp;&nbsp;&nbsp;
         <button class="counter-btn" id="sub-btn" th:onclick="'javascript: {subCounter()} '" th:disabled="${isDisabled}">-1</button>
     </div>
@@ -37,9 +37,9 @@
             <td th:text="${hptReception.rDate}"></td>
             <td th:text="${hptReception.currentStatus}"></td>
             <td>
-                <a th:if="${hptReception.currentStatus == '접수대기'}" href="#" th:onclick="'javascript: {accept(${hptReception.resNo})} '">접수</a>&nbsp
-                <a th:if="${hptReception.currentStatus == '접수대기'}" href="#" th:onclick="'javascript: {reject(${hptReception.resNo})} '">거절</a>
-                <a th:if="${hptReception.currentStatus == '진료 전'}" href="#" th:onclick="'javascript: {complete(${hptReception.resNo})} '">진료완료</a>
+                <a th:if="${hptReception.currentStatus == '접수대기'}" th:href="@{/HptReception/updateCurrentStatus(resNo=${hptReception.resNo})}" >접수</a>
+                <a th:if="${hptReception.currentStatus == '접수대기'}" th:href="@{/HptReception/reject/{resNo}(resNo=${hptReception.resNo})}" th:onclick="'javascript: {reject(${hptReception.resNo})}';">거절</a>
+                <a th:if="${hptReception.currentStatus == '진료 전'}" th:href="@{/HptReception/complete/{resNo}(resNo=${hptReception.resNo})}" th:onclick="'javascript: {complete(${hptReception.resNo})}';">진료완료</a>
             </td>
         </tr>
         </tbody>
