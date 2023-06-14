@@ -18,5 +18,4 @@ class UserDetailServiceImpl implements UserDetailsService {
         return userRepository.findByEmail(email)
                 .orElseThrow(() -> new BadCredentialsException("이메일 주소를 확인해주세요."));
     }
-
 }

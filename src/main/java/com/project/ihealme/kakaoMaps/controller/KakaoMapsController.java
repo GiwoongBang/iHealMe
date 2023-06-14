@@ -53,33 +53,14 @@ public class KakaoMapsController {
         return "maps/searchList";
     }
 
-    @PutMapping("/places/{placeId}")
-    public ResponseEntity<String> updateUserData(@PathVariable Long placeId, @RequestBody User updatedUser) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String loggedInUser = authentication.getName();
-
-        try {
-            boolean success = kakaoMapsService.updateUserPlaceData(placeId, Long.valueOf(loggedInUser), updatedUser);
-            if (success) {
-                return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-            } else {
-                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to update user data");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error occurred while updating user data");
-        }
-    }
-
     @GetMapping("/reservation")
-    public String kakaoreservation(Model model) {
+    public String kakaoreservation(Model model, @RequestParam("placeName") String placeName) {
         Long id = 1L; // 예약 폼에 표시할 ID 값
-        String selectedPlaceName = ""; // 선택한 병원명을 표시할 변수
         String pxName = ""; // 예약자 이름을 표시할 변수
         List<String> options = Arrays.asList("소아진료", "영유아검진", "예방접종"); // 예약 옵션 리스트
 
         model.addAttribute("id", id);
-        model.addAttribute("selectedPlaceName", selectedPlaceName);
+        model.addAttribute("selectedPlaceName", placeName);
         model.addAttribute("pxName", pxName);
         model.addAttribute("options", options);
         return "maps/reservation";

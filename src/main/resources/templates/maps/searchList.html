@@ -28,7 +28,9 @@
 					<tr th:each="place : ${places}">
 						<td>
 							<p th:text="${place.placeName}" th:id="'placeName-' + ${place.id}" style="font-size: 25px;">Place Name</p>
-							<button class="reservation" th:text="예약하기" th:data-placeid="${place.id}" onclick="showModal(${place.id})"></button>
+							<a th:href="@{/reservation(placeName=${place.placeName})}">
+								<button class="reservation">예약하기</button>
+							</a>
 							<br>
 							<br>
 							<a>실시간 대기자  수 : </a>
@@ -54,38 +56,23 @@
 		
 		
 		<script th:inline="javascript">
-			/*<![CDATA[*/
 			// JavaScript 코드
 			const modal = document.getElementById("myModal");
 			const reservationBtns = document.querySelectorAll(".reservation");
-			const selectedPlaceName = document.getElementById("selectedPlaceName");
+			const selectedPlaceName = document.getElementById("selectedPlaceName").textContent;
 			const confirmBtn = document.getElementById("confirmBtn");
 			const cancelBtn = document.getElementById("cancelBtn");
 			
-			function showModal(placeId) {
-				const placeName = document.getElementById(`placeName-${placeId}`).textContent;
+			// 모달 창 보여주는 스크립트 코드
+			function showModal(placeId, placeName) {
 				selectedPlaceName.textContent = placeName;
 				modal.style.display = "block";
-				confirmBtn.dataset.placeid = placeId;  // placeId를 버튼 데이터 속성에 설정
 			}
 			
 			function onConfirm() {
-				const placeId = confirmBtn.dataset.placeid;  // 버튼 데이터 속성에서 placeId 가져오기
-				const xhr = new XMLHttpRequest();
-				xhr.open("PUT", "/places/" + placeId);
-				xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-				xhr.onreadystatechange = function () {
-					if (xhr.readyState === XMLHttpRequest.DONE) {
-						if (xhr.status === 204) {
-							// /reservation으로 리다이렉트
-							window.location.href = "/reservation";
-						} else {
-							// 예약 처리 실패 시에 대한 처리
-							console.error("예약 처리 실패");
-						}
-					}
-				};
-				xhr.send();
+				const nextUrl = "/reservation"; // URL 경로 수정
+				window.location.href = nextUrl;
+				closeModal();
 			}
 			
 			function closeModal() {
@@ -97,13 +84,17 @@
 			
 			reservationBtns.forEach((reservationBtn) => {
 				const placeId = reservationBtn.dataset.placeid;
+				const placeNameElement = document.getElementById(`placeName-${placeId}`);
+				const placeName = placeNameElement.textContent;
+				
 				reservationBtn.addEventListener("click", () => {
-					showModal(placeId);
+					const url = `/nextpage?placeName=${encodeURIComponent(placeName)}`;
+					showModal(placeId, placeName);
 				});
 				
 				const mapsBtn = reservationBtn.nextElementSibling;
 				mapsBtn.addEventListener("click", () => {
-					const url = `/reservation?placeId=${placeId}`;
+					const url = `/map/reservation?placeId=${placeId}`; // 파일 경로 수정
 					window.location.href = url;
 				});
 				
@@ -113,20 +104,13 @@
 					document.cookie = `${name}=${encodeURIComponent(value)};expires=${expires.toUTCString()};path=/`;
 				}
 				
-				reservationBtn.addEventListener("click", () => {
-					const selectedPlaceName = document.getElementById(`placeName-${placeId}`).textContent;
-					setCookie("selectedPlaceName", selectedPlaceName, 1); // 1일간 쿠키 유지
-				});
+				setCookie("selectedPlaceName", selectedPlaceName, 1); // 1일간 쿠키 유지
 				
 				function goToMaps(placeId) {
 					const url = `/maps/maps?placeId=${placeId}`;
 					window.location.href = url;
 				}
 			});
-			
-			/* 모달 창의 예 버튼에 이벤트 리스너 추가 */
-			confirmBtn.addEventListener("click", onConfirm);
-			/*]]>*/
 		</script>
 	</div>
 </body>
