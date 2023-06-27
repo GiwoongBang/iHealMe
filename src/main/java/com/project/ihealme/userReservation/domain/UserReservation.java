@@ -19,7 +19,7 @@ public class UserReservation extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "RESNO_GEN")
     @SequenceGenerator(sequenceName = "USERRESERVATION_NO_SEQ", name = "RESNO_GEN", allocationSize = 1)
     @Column(name = "RESNO")
-    private Long resNo;
+    private Long resNo;d
 
     @Column(name = "EMAIL", updatable=false)
     private String email;
