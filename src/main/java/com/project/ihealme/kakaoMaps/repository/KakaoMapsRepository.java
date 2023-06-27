@@ -9,6 +9,6 @@ import org.springframework.stereotype.Repository;
 public interface KakaoMapsRepository extends JpaRepository<KakaoMapsEntity, Long> {
 
     @Query("insert into USERRESERVATION ()")
-    private void
+    private
 
 }
